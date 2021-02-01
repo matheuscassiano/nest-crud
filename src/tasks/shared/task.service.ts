@@ -21,7 +21,7 @@ export class TaskService {
   }
 
   getById(id: number) {
-    const task = this.tasks.find(({ id }) => id == id);
+    const task = this.tasks.find((value) => value.id == id);
     return task;
   }
 
@@ -48,7 +48,7 @@ export class TaskService {
   }
 
   delete(id: number) {
-    const index = this.tasks.findIndex(({ id }) => id == id);
+    const index = this.tasks.findIndex((value) => value.id == id);
     this.tasks.splice(index, 1);
   }
 }
