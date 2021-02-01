@@ -13,7 +13,7 @@ export class TaskService {
     { id: 7, description: 'Task 07', completed: false },
     { id: 8, description: 'Task 08', completed: false },
     { id: 9, description: 'Task 09', completed: false },
-    { id: 10, description: 'Task 10', completed: false }
+    { id: 10, description: 'Task 10', completed: false },
   ];
 
   getAll() {
@@ -21,19 +21,34 @@ export class TaskService {
   }
 
   getById(id: number) {
-    const task = this.tasks.find(value => value.id == id);
+    const task = this.tasks.find(({ id }) => id == id);
     return task;
   }
 
   create(task: Task) {
+    let lastId = 0;
+    if (this.tasks.length > 0) {
+      lastId = this.tasks[this.tasks.length - 1].id;
+    }
 
+    task.id = lastId + 1;
+    this.tasks.push(task);
+
+    return task;
   }
 
   update(task: Task) {
+    const taskArray = this.getById(task.id);
+    if (taskArray) {
+      taskArray.description = task.description;
+      taskArray.completed = taskArray.completed;
+    }
 
+    return taskArray;
   }
 
   delete(id: number) {
-
+    const index = this.tasks.findIndex(({ id }) => id == id);
+    this.tasks.splice(index, 1);
   }
 }
